@@ -1,4 +1,5 @@
 # Justfile for Messaging API Backend Assignment
+set shell := ["powershell", "-NoProfile", "-Command"]
 
 # Install Python dependencies
 install:
@@ -17,6 +18,10 @@ down:
 	docker-compose down
 
 # Run database migrations (if using Alembic)
+
+revision message:
+	alembic revision --autogenerate -m "{{message}}"
+
 migrate:
 	alembic upgrade head
 
