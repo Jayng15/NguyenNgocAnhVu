@@ -13,6 +13,12 @@ class UserRepository:
     async def create_user(self, user_data: UserCreate) -> UserPublic:
         """
         Create a new user and return as UserPublic schema.
+
+        Args:
+            user_data (UserCreate): The user data to create.
+
+        Returns:
+            UserPublic: The created user data.
         """
         if self.get_user_by_email(user_data.email):
             raise ValueError("User with this email already exists.")

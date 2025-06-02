@@ -61,7 +61,7 @@ async def create_user(
 )
 async def get_users(
     email: str = Query(None, description="Filter users by email"),
-    repo: UserRepository = Depends(get_user_repository)) -> list[UserPublic]:
+    repo: UserRepository = Depends(get_user_repository))-> list[UserPublic]:
     """
     Retrieve a list of users, optionally filtered by email.
     
