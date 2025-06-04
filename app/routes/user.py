@@ -1,20 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query 
 from sqlalchemy.orm import Session
+from uuid import UUID
 
 from app.schemas import UserCreate, UserPublic
 from app.db import get_db
 from app.repositories.user_repository import UserRepository
 
 def get_user_repository(db: Session = Depends(get_db)) -> UserRepository:
-    """
-    Dependency to get the UserRepository instance.
-    
-    Args:
-        db (Session): The database session dependency.
-    
-    Returns:
-        UserRepository: An instance of UserRepository.
-    """
     return UserRepository(db)
 
 router = APIRouter(
@@ -55,31 +47,31 @@ async def create_user(
 
 @router.get(
     '/',
-    summary="Get users with email filter",
+    summary="Get users with id filter",
     status_code=status.HTTP_200_OK,
     response_model=list[UserPublic],
 )
 async def get_users(
-    email: str = Query(None, description="Filter users by email"),
-    repo: UserRepository = Depends(get_user_repository))-> list[UserPublic]:
+    id: UUID | None = Query(None, description="Filter users by ID"),
+    repo: UserRepository = Depends(get_user_repository)
+) -> list[UserPublic]:
     """
-    Retrieve a list of users, optionally filtered by email.
+    Retrieve all users or filter by ID.
     
     Args:
-        email (str): Optional email filter for users.
+        id (int | None): Optional user ID to filter by.
         repo (UserRepository): The user repository dependency.
     
     Returns:
         list[UserPublic]: A list of user data.
     """
-    if email:
-        user = await repo.get_user_by_email(email)
+    if id is not None:
+        user = await repo.get_user_by_id(id)
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="User not found"
             )
         return [user]
-    users = await repo.get_users()
-    return users
 
+    return await repo.get_users()

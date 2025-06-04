@@ -176,13 +176,14 @@ async def get_unread_messages(
 )
 async def mark_message_as_read(
     message_id: UUID,
-    recipient_email: str, 
+    recipient_email: str = Query(..., description="Email of the recipient marking the message as read"),
     repo: MessageRepository = Depends(get_message_repository)
 ):
     """Mark a specific message as read.
 
     Args:
         message_id (str): The unique identifier of the message.
+        recipient_email (str): The email of the recipient marking the message as read.
         repo (MessageRepository): The message repository dependency.
         
     Returns:

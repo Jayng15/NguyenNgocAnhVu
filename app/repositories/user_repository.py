@@ -20,7 +20,8 @@ class UserRepository:
         Returns:
             UserPublic: The created user data.
         """
-        if self.get_user_by_email(user_data.email):
+        user = self.db_session.query(User).filter(User.email == user_data.email).first()
+        if user:
             raise ValueError("User with this email already exists.")
         
         new_user = User(**user_data.model_dump())
@@ -48,12 +49,18 @@ class UserRepository:
                 created_at=user.created_at
             ) for user in users
         ]
-
-    async def get_user_by_email(self, email: str) -> UserPublic | None:
+    
+    async def get_user_by_id(self, user_id: int) -> UserPublic | None:
         """
-        Retrieve a user by email and return as UserPublic schema.
+        Retrieve a user by ID and return as UserPublic schema.
+        
+        Args:
+            user_id (int): The ID of the user to retrieve.
+        
+        Returns:
+            UserPublic | None: The user data if found, otherwise None.
         """
-        user = self.db_session.query(User).filter(User.email == email).first()
+        user = self.db_session.query(User).filter(User.id == user_id).first()
         return UserPublic(
             id=user.id,
             email=user.email,

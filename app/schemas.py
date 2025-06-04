@@ -24,7 +24,7 @@ class UserCreate(BaseModel):
             raise ValidationError("Invalid email format")
         return value
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class UserPublic(BaseModel):
@@ -33,7 +33,7 @@ class UserPublic(BaseModel):
     name: str = Field(..., min_length=1, max_length=100, description="User's name")
     created_at: datetime = Field(..., description="Timestamp when the user was created")
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class MessageCreate(BaseModel):
@@ -79,7 +79,7 @@ class MessageCreate(BaseModel):
         
         return value
     
-    class Config:
+    class ConfigDict:
         orm_mode = True
     
 class SentMessage(BaseModel):
@@ -88,14 +88,14 @@ class SentMessage(BaseModel):
     recipient_emails: list[str] = Field(
         ..., 
         description="List of recipient email addresses", 
-        min_items=1, 
-        max_items=50
+        min_length=1, 
+        max_length=50
     )
     subject: Optional[str] = Field(None, description="Message subject", max_length=255)
     content: str = Field(..., description="Message content", min_length=1, max_length=5000)
     timestamp: datetime = Field(..., description="Time when the message was sent")
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class InboxMessage(BaseModel):
@@ -107,7 +107,7 @@ class InboxMessage(BaseModel):
     read: bool = Field(False, description="Read status of the message")
     read_at: Optional[datetime] = Field(None, description="Timestamp when the message was read")
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
         
 class MessageRecipientInfo(BaseModel):
@@ -115,7 +115,7 @@ class MessageRecipientInfo(BaseModel):
     read: bool = Field(False, description="Read status for this recipient")
     read_at: Optional[datetime] = Field(None, description="Timestamp when this recipient read the message")
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
 
 class MessageDetail(BaseModel):
@@ -129,5 +129,5 @@ class MessageDetail(BaseModel):
         description="List of recipients with read status"
     )
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
