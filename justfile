@@ -19,7 +19,7 @@ down:
 
 # Run database migrations (if using Alembic)
 createdb:
-	python scripts/create_db.py
+	python app/scripts/create_db.py
 
 revision message:
 	alembic revision --autogenerate -m "{{message}}"

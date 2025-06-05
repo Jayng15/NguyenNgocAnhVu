@@ -10,4 +10,5 @@ httpx
 pytest-asyncio
 black
 isort
-psycopg2
+# psycopg2
+psycopg2-binary
