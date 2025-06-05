@@ -13,11 +13,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      DB_USER: postgres
-      DB_PASSWORD: password
-      DB_NAME: messaging_api
       DATABASE_URL: postgresql://postgres:password@localhost:5432/messaging_api
-      TEST_DATABASE_URL: postgresql://postgres:password@localhost:5432/messaging_api
+      TEST_DATABASE_URL: postgresql://postgres:password@localhost:5432/test_api
     services:
       postgres:
         image: postgres:15
@@ -47,6 +44,10 @@ jobs:
       - name: Install dependencies
         run: |
           just install
+
+      - name: Verify alembic installation
+        run: |
+          pip show alembic
 
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV

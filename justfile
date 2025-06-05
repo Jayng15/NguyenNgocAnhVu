@@ -18,6 +18,8 @@ down:
 	docker-compose down
 
 # Run database migrations (if using Alembic)
+createdb:
+	python scripts/create_db.py
 
 revision message:
 	alembic revision --autogenerate -m "{{message}}"
