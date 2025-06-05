@@ -49,12 +49,12 @@ async def create_user(
     '/',
     summary="Get users with id filter",
     status_code=status.HTTP_200_OK,
-    response_model=list[UserPublic],
+    response_model=list[UserPublic] | UserPublic,
 )
 async def get_users(
     id: UUID | None = Query(None, description="Filter users by ID"),
     repo: UserRepository = Depends(get_user_repository)
-) -> list[UserPublic]:
+) -> list[UserPublic] | UserPublic:
     """
     Retrieve all users or filter by ID.
     
@@ -72,6 +72,6 @@ async def get_users(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="User not found"
             )
-        return [user]
+        return user
 
     return await repo.get_users()

@@ -1,5 +1,5 @@
 # Justfile for Messaging API Backend Assignment
-set shell := ["powershell", "-NoProfile", "-Command"]
+set shell := ["bash", "-cu"]
 
 # Install Python dependencies
 install:

@@ -27,7 +27,7 @@ def test_get_user_by_id():
     assert create_resp.status_code == 201
     user_id = create_resp.json()["id"]
 
-    response = client.get(f"/users/{user_id}")
+    response = client.get(f"/users?id={user_id}")
     assert response.status_code == 200
     data = response.json()
     assert data["id"] == user_id
