@@ -67,4 +67,4 @@ nosetests.xml
 .hypothesis/
 
 # alembic
-alembic/versions/
+alembic/versions/*

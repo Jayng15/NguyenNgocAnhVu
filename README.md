@@ -80,7 +80,7 @@ All scripts for development and testing must be included in a `Justfile`. The fo
 - `[x]` `just install`
 - `[x]` `just dev`
 - `[x]` `just migrate`
-- `[ ]` `just test`
+- `[x]` `just test`
 - `[ ]` `just down` (optional)
 - `[ ]` `just up` (optional)
 - `[ ]` `just mcp` (optional)
