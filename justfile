@@ -1,5 +1,4 @@
 # Justfile for Messaging API Backend Assignment
-set shell := ["bash", "-cu"]
 
 # Install Python dependencies
 install:
@@ -38,4 +37,4 @@ format:
 
 # Run the MCP server (optional)
 mcp:
-	uvicorn app.mcp_server:app --reload
+	python -m app.mcp_server

@@ -5,11 +5,9 @@ from app.main import app
 
 client = TestClient(app)
 
+
 def test_create_user():
-    payload = {
-        "email": "testuser@example.com",
-        "name": "Test User"
-    }
+    payload = {"email": "testuser@example.com", "name": "Test User"}
     response = client.post("/users/", json=payload)
     assert response.status_code == 201
     data = response.json()
@@ -18,11 +16,9 @@ def test_create_user():
     assert "id" in data
     assert "created_at" in data
 
+
 def test_get_user_by_id():
-    payload = {
-        "email": "getbyid@example.com",
-        "name": "Get By ID"
-    }
+    payload = {"email": "getbyid@example.com", "name": "Get By ID"}
     create_resp = client.post("/users/", json=payload)
     assert create_resp.status_code == 201
     user_id = create_resp.json()["id"]
@@ -35,11 +31,9 @@ def test_get_user_by_id():
     assert data["name"] == payload["name"]
     assert "created_at" in data
 
+
 def test_list_users():
-    payload = {
-        "email": "listuser@example.com",
-        "name": "List User"
-    }
+    payload = {"email": "listuser@example.com", "name": "List User"}
     client.post("/users/", json=payload)
 
     response = client.get("/users/")

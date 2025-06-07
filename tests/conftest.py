@@ -1,16 +1,17 @@
+import os
+from urllib.parse import urlparse
+
+import psycopg2
 import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from fastapi.testclient import TestClient
-from urllib.parse import urlparse
-import os
-import psycopg2
 
 from app.db import Base, get_db
 from app.main import app
-import os
 
 TEST_DATABASE_URL = os.getenv("TEST_DATABASE_URL")
+
 
 def create_database_if_not_exists(database_url):
     url = urlparse(database_url)
@@ -25,10 +26,12 @@ def create_database_if_not_exists(database_url):
     if not exists:
         cur.execute(f"CREATE DATABASE {db_name}")
 
+
 create_database_if_not_exists(TEST_DATABASE_URL)
 
 engine = create_engine(TEST_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_test_db():
@@ -38,6 +41,7 @@ def setup_test_db():
 
     # Teardown: drop the database tables
     Base.metadata.drop_all(bind=engine)
+
 
 @pytest.fixture
 def db_session():
@@ -50,14 +54,14 @@ def db_session():
         session.close()
         transaction.rollback()
         connection.close()
-    
+
+
 @pytest.fixture(autouse=True)
 def override_get_db(db_session):
     def _get_db():
         try:
-           yield db_session
+            yield db_session
         finally:
             pass
-    app.dependency_overrides[get_db] = _get_db
 
-    
+    app.dependency_overrides[get_db] = _get_db

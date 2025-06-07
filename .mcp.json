@@ -1,1 +1,10 @@
-# MCP manifest (optional)
+{
+  "mcpServers": {
+    "mcp_server": {
+      "command": "path/to/project/.venv/Scripts/python.exe",
+      "args": [
+        "path/to/project/app/mcp_server.py"
+      ]
+    }
+  }
+}

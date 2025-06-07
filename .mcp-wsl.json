@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "messaging-api": {
+      "command": "wsl",
+      "args": [
+        "-e", "bash", "-c",
+        "cd path/to/project && source .venv/bin/activate && export PYTHONPATH=. && just mcp"
+      ]
+    }
+  }
+}
