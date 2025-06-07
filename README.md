@@ -136,3 +136,96 @@ You must include the following in your project:
 - `[x]` Define a set of MCP tool functions that can interact with the messaging system.
 - `[x]` Provide a `.mcp.json` manifest for Claude Desktop to consume.
 - `[x]` Demonstrate successful interaction between Claude and your MCP server.
+
+### Claude Desktop MCP Server Demonstration ###
+
+``` The Claude Desktop application successfuly connect with mcp server and displays the api tools ```
+
+![Claude Desktop tools box](/assets/tools.jpg)
+
+``` Test create user function ```
+
+![Create user function](/assets/interaction1.jpg)
+
+``` Overall testing & result ```
+
+![Overall testing](/assets/interaction2.jpg)
+
+![Result](/assets/result.jpg)
+
+## 🚀 Project Setup Instructions
+
+### 🐳 Run The Project (Docker)
+
+1. **Configure Shell** (PowerShell users only):
+   ```justfile
+   set shell := ["powershell.exe", "-c"]
+   ```
+   Add this line to the top of your `justfile`
+
+2. **Environment Setup**:
+   ```bash
+   # Create .env file from example
+   cp .env.example .env
+   ```
+
+3. **Start the Application**:
+   ```bash
+   just up
+   ```
+
+### 💻 Development Setup
+
+#### **Step 1: Virtual Environment**
+```bash
+# Create virtual environment
+python -m venv .venv
+```
+
+#### **Step 2: Activate Environment**
+```bash
+# PowerShell
+.venv/Scripts/Activate.ps1
+
+# WSL/Linux
+source .venv/bin/activate
+```
+
+#### **Step 3: Install Dependencies**
+```bash
+just install
+```
+
+#### **Step 4: Database Setup**
+```bash
+# Create database
+just createdb
+```
+
+#### **Step 5: Set Python Path**
+```bash
+# PowerShell
+$env:PYTHONPATH="."
+
+# WSL/Linux
+export PYTHONPATH=$(pwd)
+```
+
+#### **Step 6: Run the Application**
+```bash
+# Start development server
+just dev
+
+# Run tests
+just test
+```
+
+### 🌐 Access Points
+- **API**: http://localhost:8000
+- **API Docs**: http://localhost:8000/docs
+
+
+
+
+
+
